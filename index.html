@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proth Consulting | Nonprofit Strategy &amp; Leadership</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #22C55E;
+      --green-dark: #16A34A;
+      --green-light: #DCFCE7;
+      --black: #111827;
+      --gray: #6B7280;
+      --gray-light: #F9FAFB;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #E5E7EB;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green-dark); }
+
+    .nav-cta {
+      background: var(--green);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--green-dark) !important; color: var(--white) !important; }
+
+    /* hamburger — mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: 72px;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 4rem 6rem;
+      gap: 4rem;
+      background: linear-gradient(135deg, var(--white) 60%, var(--green-light) 100%);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-text h1 span { color: var(--green-dark); }
+
+    .hero-text p {
+      font-size: 1.125rem;
+      color: var(--gray);
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-block;
+      border: 2px solid var(--green);
+      color: var(--green-dark);
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { background: var(--green-light); }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      max-width: 420px;
+      filter: drop-shadow(0 20px 40px rgba(34,197,94,0.18));
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 6rem; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--gray-light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img {
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-badge-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-img img {
+      width: 280px;
+      opacity: 0.9;
+    }
+
+    .about-text h2 { margin-bottom: 1.25rem; }
+
+    .about-text p {
+      color: var(--gray);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .value-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .value-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.975rem;
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .value-list li::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      background: var(--green);
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-top: 2px;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+      border-color: var(--green);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--green-dark);
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--black);
+    }
+
+    .service-card p {
+      font-size: 0.925rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    .service-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      background: var(--green-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      margin-top: 1rem;
+    }
+
+    /* ── LEADERSHIP ── */
+    #leadership { background: var(--green-dark); color: var(--white); }
+
+    #leadership .section-label { color: var(--green-light); }
+    #leadership .section-title { color: var(--white); }
+    #leadership .section-sub { color: rgba(255,255,255,0.75); }
+
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .leadership-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+
+    .leadership-card:hover { background: rgba(255,255,255,0.18); }
+
+    .leadership-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+
+    .leadership-type {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 0.85rem;
+    }
+
+    .leadership-card p {
+      font-size: 0.925rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.65;
+    }
+
+    .role-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .role-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--white);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+    }
+
+    /* ── CTA BANNER ── */
+    #cta {
+      background: var(--green-light);
+      padding: 4rem 6rem;
+      text-align: center;
+    }
+
+    #cta h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+
+    #cta p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info h2 { margin-bottom: 1rem; }
+
+    .contact-info p {
+      color: var(--gray);
+      font-size: 1.025rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--black);
+    }
+
+    .contact-detail-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--green-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--green-dark);
+    }
+
+    /* Form */
+    .contact-form {
+      background: var(--gray-light);
+      border-radius: 14px;
+      padding: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--black);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .form-submit:hover { background: var(--green-dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.65);
+      padding: 2.5rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 36px; filter: brightness(0) invert(1) opacity(0.7); }
+
+    footer p { font-size: 0.875rem; }
+
+    footer a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      section, .hero, #cta, footer { padding-left: 3rem; padding-right: 3rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      section, .hero, #cta, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      .hero-actions { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-visual img { max-width: 200px; }
+
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .about-img { display: none; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .leadership-grid { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="Square_P_withtext_transparent_variation.png" alt="Proth Consulting" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#leadership">Leadership Support</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <span class="section-label">Nonprofit Consulting</span>
+      <h1>Empowering Nonprofits to <span>Grow, Lead,</span> and Thrive</h1>
+      <p>Proth Consulting provides strategic, operational, and leadership expertise so mission-driven organizations can focus on what matters most — their communities.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Explore Services</a>
+        <a href="#contact" class="btn-secondary">Schedule a Conversation</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="Square_P_transparent.png" alt="Proth Consulting logo mark" />
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="Square_P_withtext_transparent_variation.png" alt="Proth Consulting" />
+      </div>
+      <div class="about-text">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">A Trusted Partner for the Nonprofit Sector</h2>
+        <p>Proth Consulting was founded on a simple belief: nonprofits deserve the same caliber of strategic and operational support as any high-performing organization. We bring decades of sector experience to every engagement — without the overhead of a large firm.</p>
+        <p>Whether you need a thought partner for long-range planning, an experienced fundraiser to build your development program, or a seasoned executive to lead your team through transition, we meet you where you are.</p>
+        <ul class="value-list">
+          <li>Deep nonprofit sector expertise across mission types and budget sizes</li>
+          <li>Practical, results-oriented engagements tailored to your organization</li>
+          <li>Flexible models — project, fractional, or interim — that fit your needs and budget</li>
+          <li>A commitment to your long-term capacity, not dependency on outside help</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Consulting Services</h2>
+    <p class="section-sub">We offer a focused range of services designed to strengthen the core of your nonprofit — from strategy to sustainability.</p>
+
+    <div class="services-grid">
+
+      <!-- Strategic Planning -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <h3>Strategic Planning</h3>
+        <p>Facilitate board and staff alignment around a clear theory of change and actionable multi-year strategy. We guide your organization through environmental scanning, priority-setting, and the development of a roadmap that connects mission to measurable outcomes.</p>
+        <span class="service-tag">Planning &amp; Vision</span>
+        <span class="service-tag">Communications Plan</span>
+      </div>
+
+      <!-- Fundraising Operations -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Fundraising Operations</h3>
+        <p>Build the infrastructure your development program needs to sustain and grow. We assess systems, processes, and team capacity to optimize how your organization attracts, cultivates, and retains donors at every level.</p>
+        <span class="service-tag">Revenue &amp; Sustainability</span>
+      </div>
+
+      <!-- Development Planning -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Development Planning</h3>
+        <p>Create a comprehensive, multi-channel development plan that diversifies your revenue base. From annual funds and major gifts to grants and planned giving, we design strategies that are ambitious, realistic, and rooted in your unique donor community.</p>
+        <span class="service-tag">Growth Strategy</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section id="leadership">
+    <span class="section-label">Leadership Support</span>
+    <h2 class="section-title">Fractional &amp; Interim Executive Support</h2>
+    <p class="section-sub">Access seasoned C-suite leadership — exactly when you need it, at the scale that makes sense. Our fractional and interim models give nonprofits executive capacity without full-time cost.</p>
+
+    <div class="leadership-grid">
+
+      <div class="leadership-card">
+        <div class="leadership-type">Fractional Support</div>
+        <h3>Fractional Chief Executive Officer</h3>
+        <p>Ongoing, part-time executive leadership for organizations that need senior CEO-level guidance — strategic direction, board relations, culture, and organizational performance — without a full-time salary commitment.</p>
+        <div class="role-pills">
+          <span class="role-pill">Board Relations</span>
+          <span class="role-pill">Organizational Strategy</span>
+          <span class="role-pill">Executive Leadership</span>
+        </div>
+      </div>
+
+      <div class="leadership-card">
+        <div class="leadership-type">Fractional Support</div>
+        <h3>Fractional Chief Operating Officer</h3>
+        <p>Part-time operational leadership to build strong systems, streamline processes, and ensure day-to-day operations align with your strategic priorities and programmatic goals.</p>
+        <div class="role-pills">
+          <span class="role-pill">Operations</span>
+          <span class="role-pill">Systems &amp; Process</span>
+          <span class="role-pill">Staff Management</span>
+        </div>
+      </div>
+
+      <div class="leadership-card">
+        <div class="leadership-type">Fractional Support</div>
+        <h3>Fractional Chief Fundraising Officer</h3>
+        <p>Senior fundraising leadership on a fractional basis — stewarding major donor relationships, leading development staff, and ensuring your fundraising program is on track to meet and exceed goals.</p>
+        <div class="role-pills">
+          <span class="role-pill">Major Gifts</span>
+          <span class="role-pill">Development Leadership</span>
+          <span class="role-pill">Donor Strategy</span>
+        </div>
+      </div>
+
+      <div class="leadership-card">
+        <div class="leadership-type">Interim Support</div>
+        <h3>Interim Executive Leadership</h3>
+        <p>Full-time, temporary executive leadership — CEO, COO, or Chief Fundraiser — during transitions, planned departures, or unexpected vacancies. We stabilize your organization and maintain momentum while you conduct a thoughtful permanent search.</p>
+        <div class="role-pills">
+          <span class="role-pill">Interim CEO</span>
+          <span class="role-pill">Interim COO</span>
+          <span class="role-pill">Interim Fundraising Lead</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section id="cta">
+    <h2>Ready to move your mission forward?</h2>
+    <p>Let's have a conversation about where your organization is and where you want to go.</p>
+    <a href="#contact" class="btn-primary">Connect with Proth Consulting</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="section-label">Contact Us</span>
+        <h2 class="section-title">Let's Start a Conversation</h2>
+        <p>Every engagement begins with listening. Reach out and tell us about your organization — we'll respond within one business day.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span>proth.consulting@gmail.com</span>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.27a16 16 0 0 0 5.64 5.64l1.14-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 15z"/></svg>
+          </div>
+          <span>(704) 308-7439</span>
+        </div>
+
+      </div>
+
+      <div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Smith" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="jane@yourorg.org" required />
+          </div>
+
+          <div class="form-group">
+            <label for="org">Organization Name</label>
+            <input type="text" id="org" placeholder="Your Nonprofit Name" />
+          </div>
+
+          <div class="form-group">
+            <label for="service">Area of Interest</label>
+            <select id="service">
+              <option value="">Select a service area...</option>
+              <option>Strategic Planning</option>
+              <option>Fundraising Operations</option>
+              <option>Development Planning</option>
+              <option>Fractional CEO Support</option>
+              <option>Fractional COO Support</option>
+              <option>Fractional Fundraising Support</option>
+              <option>Interim Executive Support</option>
+              <option>Not sure yet — let's talk</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Tell us about your organization and needs</label>
+            <textarea id="message" placeholder="Share a little about where your organization is and what challenges you're facing..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="Square_P_withtext_transparent_variation.png" alt="Proth Consulting" />
+    <p>&copy; 2026 Proth Consulting. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.style.color = link.getAttribute('href') === '#' + entry.target.id
+              ? 'var(--green-dark)'
+              : '';
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent!';
+      btn.style.background = 'var(--green-dark)';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
